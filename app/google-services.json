@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "6082667926",
+    "firebase_url": "https://idle-cat-b039b-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "idle-cat-b039b",
+    "storage_bucket": "idle-cat-b039b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:6082667926:android:0041fdc4762d2fe28e29b7",
+        "android_client_info": {
+          "package_name": "mdevs.idle.cat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "6082667926-ug6ku5tjqpnjbflj486ngkujdri1op6s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mdevs.idle.cat",
+            "certificate_hash": "cdc8caddb4790b18c645e44af995f0467bedfee0"
+          }
+        },
+        {
+          "client_id": "6082667926-i7makbm4ali04rbamg2d61mnvqid855j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbK8PDiOSaD-o3cdmjVNjeSokndylsEpU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "6082667926-i7makbm4ali04rbamg2d61mnvqid855j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-9969027511473485~2710116402"
+    }
+  ],
+  "configuration_version": "1"
+}

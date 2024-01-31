@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#CCECF9</color>
-    <color name="colorPrimaryDark">#A3EFED</color>
-    <color name="colorAccent">#FF97B0</color>
-    <color name="colorButtonNormal">#FF97B0</color>
-    <color name="colorBackground">#FCF0E4</color>
+    <color name="colorPrimary">#282C2F</color>
+    <color name="colorPrimaryDark">#202124</color>
+    <color name="colorAccent">#DBA324</color>
+    <color name="colorButtonNormal">#DBA324</color>
+    <color name="colorBackground">#323639</color>
+    <color name="whiteTextColor">#fff</color>
+    <color name="primaryTextColor">#00a5ff</color>
+    <color name="loginBkColor">#f0f0f0</color>
+
+    <!--colros for card-->
+    <color name="whiteCardColor">#fff</color>
 </resources>

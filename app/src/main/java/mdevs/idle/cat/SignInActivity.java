@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -40,6 +42,7 @@ public class SignInActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         setContentView(R.layout.activity_sign_in);
 
         // Initialize FirebaseAuth
@@ -72,10 +75,15 @@ public class SignInActivity extends AppCompatActivity implements
                 break;
         }
     }
-
+    @Override
+    public void onBackPressed()     {
+        super.onBackPressed();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
+
     }
 
     @Override
@@ -124,6 +132,7 @@ public class SignInActivity extends AppCompatActivity implements
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             startActivity(new Intent(SignInActivity.this, MainActivity.class));
+
                             finish();
                         }
                     }

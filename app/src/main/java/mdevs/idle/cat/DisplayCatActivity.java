@@ -1,14 +1,25 @@
 package mdevs.idle.cat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -16,14 +27,22 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 
 import java.util.Timer;
 import mdevs.idle.cat.R;
+import mdevs.idle.cat.chat.ChatMessage;
+
+import android.os.Bundle;
 
 public class DisplayCatActivity extends AppCompatActivity implements RewardedVideoAdListener {
     private static final String TAG = "DisplayCatActivity";
     private static final Integer UPDATE_FREQUENCY = 10 * 1000;
+
+
+    //chat
+    private FirebaseListAdapter<ChatMessage> adapter;
 
     // Firebase instance variables
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -37,6 +56,8 @@ public class DisplayCatActivity extends AppCompatActivity implements RewardedVid
     private TextView mCatIntimacyTextView;
     private TextView mCatFoodTextView;
     private TextView mCatChatTextView;
+
+    private ImageView cat;
     private Timer mCatTimer;
     private CatStatusHolder mCatStatus;
     private CatSchedule mCatSchedule;
@@ -45,6 +66,7 @@ public class DisplayCatActivity extends AppCompatActivity implements RewardedVid
     // User info
     private String mUsername = "";
     private String mUID = "";
+    public RelativeLayout mlayout;
 
     // System info
     private boolean inited = false;
@@ -53,12 +75,17 @@ public class DisplayCatActivity extends AppCompatActivity implements RewardedVid
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_cat);
 
+       
         // Init user info.
         Intent intent = getIntent();
         mUsername = intent.getStringExtra(MainActivity.USERNAME);
         mUID = intent.getStringExtra(MainActivity.USERID);
         TextView textView = (TextView) findViewById(R.id.username_text_view);
         textView.setText("Hello, " + mUsername + "!");
+
+        //chat
+       // mlayout = (RelativeLayout) findViewById(R.id.message_layout);
+        //displayChatMessages();
 
         // Init cat status.
         mCatStatus = null;
@@ -71,6 +98,11 @@ public class DisplayCatActivity extends AppCompatActivity implements RewardedVid
         mCatChat = new CatChat();
         mCatChatTextView = (TextView) findViewById(R.id.cat_chat_text_view);
 
+        cat = (ImageView) findViewById(R.id.cat_image_view);
+        Glide.with(this)
+                .load(R.drawable.kat_walk)
+                .into(cat);
+
         // Init Firebase Analytics.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle payload = new Bundle();
@@ -80,7 +112,7 @@ public class DisplayCatActivity extends AppCompatActivity implements RewardedVid
 
         // Firebase database codes.
         mCatTimer = new Timer();
-        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference(mUID);
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference(mUsername);
         mFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -121,7 +153,7 @@ public class DisplayCatActivity extends AppCompatActivity implements RewardedVid
                 mCatStatus.setStatus(s);
                 updateCatStatusTextViews();
                 Log.d(TAG, "Value is: " + mCatStatus.getHungry());
-                Toast.makeText(DisplayCatActivity.this, "Value is: " + mCatStatus.getHungry(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(DisplayCatActivity.this, "Value is: " + mCatStatus.getHungry(), Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onCancelled(DatabaseError error) {
@@ -141,7 +173,11 @@ public class DisplayCatActivity extends AppCompatActivity implements RewardedVid
                 .build();
         mBannerAdView.loadAd(adRequest);
     }
-
+    @Override
+    public void onBackPressed()     {
+        super.onBackPressed();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
     public void feedMyCat(View view) {
         if (!inited) return;
         boolean success = mCatStatus.feed();
@@ -152,11 +188,18 @@ public class DisplayCatActivity extends AppCompatActivity implements RewardedVid
             } else {
                 mCatChatTextView.setText(getString(R.string.eating_chat));
             }
-            ImageView cat = (ImageView)findViewById(R.id.cat_image_view);
-            cat.setImageResource(R.drawable.pusheen_eat);
+            Glide.with(this)
+                    .load(R.drawable.pusheen_eat)
+                    .into(cat);
+
         } else {
             mCatChatTextView.setText(getString(R.string.no_food_chat));
         }
+    }
+
+    public void chatnow(View view) {
+        Intent intent = new Intent(DisplayCatActivity.this, ChatActivity.class);
+        startActivity(intent);
     }
 
     public void chatWithCat(View view) {
@@ -169,7 +212,7 @@ public class DisplayCatActivity extends AppCompatActivity implements RewardedVid
         // Bypass age for now.
         age = 20;
 
-        ImageView cat = (ImageView)findViewById(R.id.cat_image_view);
+
         if (mCatStatus.getHungry() > 70) {
             if (age <= 3) {
                 chat_array = res.getStringArray(R.array.happy_chat_array_1);
@@ -178,7 +221,10 @@ public class DisplayCatActivity extends AppCompatActivity implements RewardedVid
             } else {
                 chat_array = res.getStringArray(R.array.happy_chat_array_3);
             }
-            cat.setImageResource(R.drawable.pusheen_happy_1);
+            Glide.with(this)
+                    .load(R.drawable.pusheen_happy_1)
+                    .into(cat);
+
             pat = 3;
         } else if (mCatStatus.getHungry() > 30) {
             if (age <= 3) {
@@ -190,11 +236,17 @@ public class DisplayCatActivity extends AppCompatActivity implements RewardedVid
             }
             double v = Math.random();
             if (v > 2/3) {
-                cat.setImageResource(R.drawable.pusheen_normal_1);
+                Glide.with(this)
+                        .load(R.drawable.pusheen_normal_1)
+                        .into(cat);
             } else if (v > 1/3) {
-                cat.setImageResource(R.drawable.pusheen_normal_2);
+                Glide.with(this)
+                        .load(R.drawable.pusheen_normal_2)
+                        .into(cat);
             } else {
-                cat.setImageResource(R.drawable.pusheen_normal_3);
+                Glide.with(this)
+                        .load(R.drawable.pusheen_normal_3)
+                        .into(cat);
             }
             pat = 1;
         } else {
@@ -205,7 +257,10 @@ public class DisplayCatActivity extends AppCompatActivity implements RewardedVid
             } else {
                 chat_array = res.getStringArray(R.array.hungry_chat_array_3);
             }
-            cat.setImageResource(R.drawable.pusheen_hungry);
+            Glide.with(this)
+                    .load(R.drawable.pusheen_hungry)
+                    .into(cat);
+
             pat = 0;
         }
         mCatChatTextView.setText(chat_array[mCatChat.chat(chat_array.length)]);
@@ -214,9 +269,7 @@ public class DisplayCatActivity extends AppCompatActivity implements RewardedVid
         updateCatStatusTextViews();
         mFirebaseDatabaseReference.setValue(mCatStatus.getStatus());
 
-         /*Glide.with(this)
-                .load(R.drawable.kat_walk)
-                .into(cat);*/
+
     }
 
     public void watchAds(View view) {
@@ -284,4 +337,6 @@ public class DisplayCatActivity extends AppCompatActivity implements RewardedVid
         mCatFoodTextView.setText(mCatStatus.getFood().toString());
         mAgeTextView.setText(mCatStatus.getAgeString());
     }
+
+
 }

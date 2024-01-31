@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "6082667926-ug6ku5tjqpnjbflj486ngkujdri1op6s.apps.googleusercontent.com",
+          "client_id": "6082667926-9dvshj766gs8f6lqosu07ukbn9ksa0o1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "mdevs.idle.cat",
-            "certificate_hash": "cdc8caddb4790b18c645e44af995f0467bedfee0"
+            "certificate_hash": "3cf6e5efedd51dc9c746c5fcf547d36e6316a32e"
           }
         },
         {

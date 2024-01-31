@@ -1,33 +1,39 @@
 <resources>
-    <string name="app_name">Idle Cat</string>
-    <string name="title_activity_sign_in">Sign in</string>
+    <string name="app_name" translatable="false">Idle Cat</string>
+    <string name="title_activity_sign_in" translatable="false">Sign in</string>
 
+    <string name="enter_text_to_chat" translatable="false">Enter text to chat</string>
+    <string name="ok" translatable="false">Ok</string>
+    <string name="enter_group_name" translatable="false">Enter group name</string>
+    <string name="submit" translatable="false">submit</string>
+    <string name="add_group" translatable="false">Add Group</string>
+    <string name="join_group" translatable="false">Join Group</string>
     <!-- String of Button -->
-    <string name="food_button">Food:</string>
-    <string name="cat_name_button">Cat Name: Pusheen</string>
-    <string name="hungry_button">Hungry:</string>
-    <string name="intimacy_button">Intimacy:</string>
-    <string name="feed_button">FEED</string>
-    <string name="chat_button">CHAT</string>
-    <string name="get_food">GET FOOD</string>
+    <string name="food_button" translatable="false">Food:</string>
+    <string name="cat_name_button" translatable="false">Cat Name: Pusheen</string>
+    <string name="hungry_button" translatable="false">Hungry:</string>
+    <string name="intimacy_button" translatable="false">Intimacy:</string>
+    <string name="feed_button" translatable="false">FEED</string>
+    <string name="chat_button" translatable="false">CHAT</string>
+    <string name="get_food" translatable="false">GET FOOD</string>
 
     <!-- Strings related to login -->
-    <string name="welcome_msg">Meow!</string>
-    <string name="sign_out">Sign Out</string>
-    <string name="contacts_permission_rationale">Access to account information is required to sign in.</string>
-    <string name="sign_in">Sign In</string>
-    <string name="sign_up">Sign Up</string>
-    <string name="fresh_config">Fresh Config</string>
-    <string name="cause_crash">Cause Crash</string>
+    <string name="welcome_msg" translatable="false">Meow!</string>
+    <string name="sign_out" translatable="false">Sign Out</string>
+    <string name="contacts_permission_rationale" translatable="false">Access to account information is required to sign in.</string>
+    <string name="sign_in" translatable="false">Sign In</string>
+    <string name="sign_up" translatable="false">Sign Up</string>
+    <string name="fresh_config" translatable="false">Fresh Config</string>
+    <string name="cause_crash" translatable="false">Cause Crash</string>
     <string name="banner_ad_unit_id" translatable="false"></string>
 
     <!-- Chats -->
     <!-- Special Chats -->
-    <string name="no_ads">Grocery store is not in stock yet.</string>
-    <string name="full_chat">I am a full meow. Don\'t make me a fat meow.</string>
-    <string name="eating_chat">Meo..mm (Eating)</string>
-    <string name="no_food_chat">Well, we don\'t have any food you stupid.</string>
-    <string name="on_rewarded">Food! Finally you did something awesome!</string>
+    <string name="no_ads" translatable="false">Grocery store is not in stock yet.</string>
+    <string name="full_chat" translatable="false">I am a full meow. Don\'t make me a fat meow.</string>
+    <string name="eating_chat" translatable="false">Meo..mm (Eating)</string>
+    <string name="no_food_chat" translatable="false">Well, we don\'t have any food you stupid.</string>
+    <string name="on_rewarded" translatable="false">Food! Finally you did something awesome!</string>
     <!-- 1 - 3 days -->
     <!-- ## happy -->
     <string-array name="happy_chat_array_1">
@@ -115,4 +121,16 @@
         <item>My hint is...GET SOME FOOD!</item>
         <item>Life is FOOOOOOOOOOD.</item>
     </string-array>
+    <string name="register" translatable="false">REGISTER</string>
+    <string name="login_email_hint" translatable="false">Email</string>
+    <string name="login_password_hint" translatable="false">Password</string>
+    <string name="signup_login_hint" translatable="false">Already have an account? Sign In</string>
+    <string name="login_signup_hint" translatable="false">Don\'t have an account? Sign Up</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
 </resources>

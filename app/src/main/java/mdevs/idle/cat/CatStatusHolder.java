@@ -1,13 +1,10 @@
 package mdevs.idle.cat;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.util.Date;
 
 import static java.lang.Math.toIntExact;
-
-import com.google.firebase.database.DataSnapshot;
 
 /**
  * Created by mdevs on 09/11/2023.
@@ -28,7 +25,6 @@ public class CatStatusHolder {
     public CatStatusHolder() {
         mStatus = new CatStatus();
         mStatus.last_login_sec = System.currentTimeMillis() / MILLIS;
-        //DataSnapshot.getValue(CatStatus.class);
         // Default constructor required for calls to DataSnapshot.getValue(CatStatus.class)
     }
 

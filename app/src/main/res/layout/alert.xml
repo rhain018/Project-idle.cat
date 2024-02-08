@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/enter_group_name"
         android:layout_margin="20dp"
+        android:fontFamily="@font/vt323"
         android:id="@+id/groupname" />
 
     <Button
@@ -18,6 +19,7 @@
         android:background="@drawable/button_state"
         android:textColor="@color/button_text_color"
         android:text="@string/submit"
+        android:fontFamily="@font/vt323"
         android:id="@+id/submitbtn"/>
 
 </LinearLayout>

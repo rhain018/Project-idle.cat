@@ -19,8 +19,9 @@
 
         <TextView
             style="@style/headerTextPrimary"
-            android:text="Sign in"
-            android:textColor="@color/colorAccent"
+            android:text="Google account only"
+            android:fontFamily="@font/vt323"
+            android:textColor="@color/colorPrimary"
             android:layout_marginTop="@dimen/loginViewsMargin"/>
 
 

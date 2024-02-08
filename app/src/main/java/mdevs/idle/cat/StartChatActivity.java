@@ -26,14 +26,17 @@ public class StartChatActivity extends AppCompatActivity {
 
     private DatabaseReference root;
     private TextView chathistory;
+    private String mUsername ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_chat);
 
-        final String userName = getIntent().getExtras().getString(MainActivity.USERNAME);
-        String chatRoom = getIntent().getExtras().getString(ChatActivity.ROOT_NAME);
+        // final String userName = getIntent().getExtras().getString(MainActivity.USERNAME);
+        Intent intent = getIntent();
+        String mUsername = intent.getStringExtra(MainActivity.USERNAME);
+        String chatRoom = "CHATS";
 
         setTitle(chatRoom); // setting title of activity as group name
 
@@ -55,7 +58,7 @@ public class StartChatActivity extends AppCompatActivity {
 
                 DatabaseReference message_root = root.child(key);
                 Map<String,Object> map1 = new HashMap<String, Object>();
-                map1.put("name", userName);
+                map1.put("name", mUsername);
                 map1.put("msg",userChat.getText().toString());
                 message_root.updateChildren(map1);  // pushing user enter text to firebase database
 
@@ -113,9 +116,9 @@ public class StartChatActivity extends AppCompatActivity {
 
         while (iterator.hasNext()){
             chatmessage  = (String) ((DataSnapshot)(iterator.next())).getValue();
-            chatUserName = (String) ((DataSnapshot) iterator.next()).getValue();
+           // mUsername = (String) ((DataSnapshot) iterator.next()).getValue();
 
-            chathistory.append(chatUserName + " : " + chatmessage + "\n\n");
+            chathistory.append(mUsername + " : " + chatmessage + "\n\n");
         }
 
 

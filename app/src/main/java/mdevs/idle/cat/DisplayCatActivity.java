@@ -1,15 +1,18 @@
 package mdevs.idle.cat;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -75,6 +78,9 @@ public class DisplayCatActivity extends AppCompatActivity implements RewardedVid
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_cat);
 
+        if (!isConnected(this)) {
+            showInternetDialog();
+        }
        
         // Init user info.
         Intent intent = getIntent();
@@ -174,9 +180,52 @@ public class DisplayCatActivity extends AppCompatActivity implements RewardedVid
         mBannerAdView.loadAd(adRequest);
     }
     @Override
-    public void onBackPressed()     {
-        super.onBackPressed();
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        DisplayCatActivity.super.onBackPressed();
+                        finish();
+                        System.exit(0);
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+    private void showInternetDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog, findViewById(R.id.no_internet_layout));
+        view.findViewById(R.id.try_again).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isConnected(DisplayCatActivity.this)) {
+                    showInternetDialog();
+                } else {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+                }
+            }
+        });
+
+        builder.setView(view);
+
+        AlertDialog alertDialog = builder.create();
+
+        alertDialog.show();
+
+    }
+
+    private boolean isConnected(DisplayCatActivity displayCatActivity) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) displayCatActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected());
     }
     public void feedMyCat(View view) {
         if (!inited) return;
@@ -198,7 +247,7 @@ public class DisplayCatActivity extends AppCompatActivity implements RewardedVid
     }
 
     public void chatnow(View view) {
-        Intent intent = new Intent(DisplayCatActivity.this, ChatActivity.class);
+        Intent intent = new Intent(DisplayCatActivity.this, StartChatActivity.class);
         startActivity(intent);
     }
 

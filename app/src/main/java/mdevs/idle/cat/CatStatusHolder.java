@@ -38,7 +38,7 @@ public class CatStatusHolder {
             mStatus.hungry = hungry;
             mStatus.intimacy = intimacy;
             mStatus.food = 10;
-            mStatus.$coin = 10;
+            mStatus.coin = 10;
             mStatus.last_login_sec = System.currentTimeMillis() / MILLIS;
             mStatus.creation_date = new Date();
         }

@@ -12,7 +12,7 @@ public class CatStatus {
     // Inventory
     public Integer food = 0;
 
-    public Integer $coin = 0;
+    public Integer coin = 0;
     // System
     public Long last_login_sec = 0L;
     public Date creation_date;

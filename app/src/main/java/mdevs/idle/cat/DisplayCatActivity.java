@@ -35,6 +35,7 @@ import com.google.firebase.database.*;
 
 import java.util.Timer;
 import mdevs.idle.cat.R;
+import mdevs.idle.cat.chat.CatChatActivity;
 import mdevs.idle.cat.chat.ChatMessage;
 
 import android.os.Bundle;
@@ -210,11 +211,8 @@ public class DisplayCatActivity extends AppCompatActivity implements RewardedVid
                 }
             }
         });
-
         builder.setView(view);
-
         AlertDialog alertDialog = builder.create();
-
         alertDialog.show();
 
     }
@@ -247,7 +245,7 @@ public class DisplayCatActivity extends AppCompatActivity implements RewardedVid
     }
 
     public void chatnow(View view) {
-        Intent intent = new Intent(DisplayCatActivity.this, StartChatActivity.class);
+        Intent intent = new Intent(DisplayCatActivity.this, CatChatActivity.class);
         startActivity(intent);
     }
 

@@ -15,6 +15,7 @@
       android:layout_marginTop="2dp"
       android:layout_weight="2"
       android:maxLines="3"
+      android:textColor="@color/whiteCardColor"
       android:text="Long message Long message Long message Long message Long message Long message Long message Long message Long message  "
       android:autoLink="all"
       />

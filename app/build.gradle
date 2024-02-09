@@ -61,6 +61,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:10.2.6'
     implementation 'com.google.firebase:firebase-database:10.2.6'
     implementation 'com.google.firebase:firebase-storage:10.2.6'
+
     implementation 'com.firebaseui:firebase-ui-database:1.2.0'
 
     //noinspection GradleCompatible
